@@ -25,7 +25,7 @@
                 </ul>
             </nav>
 
-            <a href="https://music.yandex.ru/album/39035168" target="_blank" rel="noopener" class="btn-header">Яндекс Музыка ↗</a>
+            <a href="https://music.yandex.ru/album/39035168" target="_blank" rel="noopener" class="btn-header">Яндекс Музыка ↗&#xFE0E;</a>
 
             <button class="burger-btn" id="burger-btn" aria-label="Меню">
                 <span></span><span></span><span></span>
@@ -50,7 +50,7 @@
                     </p>
 
                     <div class="hero-actions">
-                        <a href="#album" class="btn-primary">Прослушать сниппеты</a>
+                        <a href="#album" class="btn-primary">Прослушать</a>
                         <a href="#platforms" class="btn-ghost">Все площадки</a>
                     </div>
                 </div>
@@ -59,7 +59,6 @@
                     <div class="artist-portrait-wrap">
                         <img src="Content/artist-hero.png" alt="Евгений Маношкин" class="artist-portrait">
                         <div class="portrait-caption">
-                            <span>ТОЧКА НЕВОЗВРАТА (2025-10-15)</span>
                         </div>
                     </div>
                 </div>
@@ -93,9 +92,15 @@
                             </div>
 
                             <div class="player-controls">
-                                <button class="ctrl-btn" id="prev-btn" aria-label="Предыдущий трек">⏮</button>
-                                <button class="ctrl-btn play-main" id="master-play" aria-label="Пуск / Пауза">▶</button>
-                                <button class="ctrl-btn" id="next-btn" aria-label="Следующий трек">⏭</button>
+                                <button class="ctrl-btn" id="prev-btn" aria-label="Предыдущий трек">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+                                </button>
+                                <button class="ctrl-btn play-main" id="master-play" aria-label="Пуск / Пауза">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                </button>
+                                <button class="ctrl-btn" id="next-btn" aria-label="Следующий трек">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                                </button>
                             </div>
                         </div>
 
@@ -112,18 +117,20 @@
                         <li><span>Дата релиза</span><strong>15 октября 2025</strong></li>
                         <li><span>Жанр</span><strong>Поп-рок / Инди</strong></li>
                         <li><span>Формат</span><strong>Студийный альбом</strong></li>
-                        <li><span>Количество</span><strong>14 аудиодорожек</strong></li>
+                        <li><span>Количество</span><strong>14</strong></li>
                     </ul>
 
                     <a href="https://music.yandex.ru/album/39035168?utm_source=web&utm_medium=copy_link" target="_blank" rel="noopener" class="btn-primary full-width">
-                        Слушать альбом целиком ↗
+                        Слушать альбом целиком ↗&#xFE0E;
                     </a>
                 </div>
 
                 <!-- Правая колонка: Треклист -->
                 <div class="tracklist" id="tracklist">
                     <div class="track-row" data-index="0" data-title="Сибирь" data-src="Content/track1.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Сибирь">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Сибирь">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">01</span>
                             <span class="track-name">Сибирь</span>
@@ -135,7 +142,9 @@
                     </div>
 
                     <div class="track-row" data-index="1" data-title="Зима" data-src="Content/track2.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Зима">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Зима">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">02</span>
                             <span class="track-name">Зима</span>
@@ -147,7 +156,9 @@
                     </div>
 
                     <div class="track-row" data-index="2" data-title="Заживо" data-src="Content/track3.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Заживо">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Заживо">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">03</span>
                             <span class="track-name">Заживо</span>
@@ -159,7 +170,9 @@
                     </div>
 
                     <div class="track-row" data-index="3" data-title="Полшага до мечты" data-src="Content/track4.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Полшага до мечты">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Полшага до мечты">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">04</span>
                             <span class="track-name">Полшага до мечты</span>
@@ -171,7 +184,9 @@
                     </div>
 
                     <div class="track-row" data-index="4" data-title="Нарисую" data-src="Content/track5.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Нарисую">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Нарисую">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">05</span>
                             <span class="track-name">Нарисую</span>
@@ -183,7 +198,9 @@
                     </div>
 
                     <div class="track-row" data-index="5" data-title="В Алтайке дожди" data-src="Content/track6.mp3">
-                        <button class="track-play-btn" aria-label="Слушать В Алтайке дожди">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать В Алтайке дожди">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">06</span>
                             <span class="track-name">В Алтайке дожди</span>
@@ -195,7 +212,9 @@
                     </div>
 
                     <div class="track-row" data-index="6" data-title="Дыши" data-src="Content/track7.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Дыши">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Дыши">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">07</span>
                             <span class="track-name">Дыши</span>
@@ -207,7 +226,9 @@
                     </div>
 
                     <div class="track-row" data-index="7" data-title="Письмо" data-src="Content/track8.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Письмо">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Письмо">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">08</span>
                             <span class="track-name">Письмо</span>
@@ -219,7 +240,9 @@
                     </div>
 
                     <div class="track-row" data-index="8" data-title="Идут бои" data-src="Content/track9.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Идут бои">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Идут бои">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">09</span>
                             <span class="track-name">Идут бои</span>
@@ -231,7 +254,9 @@
                     </div>
 
                     <div class="track-row" data-index="9" data-title="Спасибо тебе" data-src="Content/track10.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Спасибо тебе">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Спасибо тебе">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">10</span>
                             <span class="track-name">Спасибо тебе</span>
@@ -243,7 +268,9 @@
                     </div>
 
                     <div class="track-row" data-index="10" data-title="Штурм" data-src="Content/track11.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Штурм">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Штурм">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">11</span>
                             <span class="track-name">Штурм</span>
@@ -255,7 +282,9 @@
                     </div>
 
                     <div class="track-row" data-index="11" data-title="Край" data-src="Content/track12.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Край">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Край">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">12</span>
                             <span class="track-name">Край</span>
@@ -267,7 +296,9 @@
                     </div>
 
                     <div class="track-row" data-index="12" data-title="Время под прицелом" data-src="Content/track13.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Время под прицелом">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Время под прицелом">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">13</span>
                             <span class="track-name">Время под прицелом</span>
@@ -279,7 +310,9 @@
                     </div>
 
                     <div class="track-row" data-index="13" data-title="Дарю" data-src="Content/track14.mp3">
-                        <button class="track-play-btn" aria-label="Слушать Дарю">▶</button>
+                        <button class="track-play-btn" aria-label="Слушать Дарю">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                         <div class="track-info">
                             <span class="track-num">14</span>
                             <span class="track-name">Дарю</span>
@@ -309,7 +342,7 @@
                         <span class="platform-sub">Слушать на</span>
                         <strong>Яндекс Музыка</strong>
                     </div>
-                    <span class="platform-arrow">↗</span>
+                    <span class="platform-arrow">↗&#xFE0E;</span>
                 </a>
 
                 <a href="https://vk.ru/artist/7552135178970107015" target="_blank" rel="noopener" class="platform-card">
@@ -320,7 +353,7 @@
                         <span class="platform-sub">Слушать в</span>
                         <strong>VK Музыка</strong>
                     </div>
-                    <span class="platform-arrow">↗</span>
+                    <span class="platform-arrow">↗&#xFE0E;</span>
                 </a>
 
                 <a href="https://zvuk.com/artist/213727810" target="_blank" rel="noopener" class="platform-card">
@@ -331,7 +364,7 @@
                         <span class="platform-sub">Слушать в</span>
                         <strong>Звук</strong>
                     </div>
-                    <span class="platform-arrow">↗</span>
+                    <span class="platform-arrow">↗&#xFE0E;</span>
                 </a>
 
                 <a href="https://music.apple.com/ru/artist/%D0%B5%D0%B2%D0%B3%D0%B5%D0%BD%D0%B8%D0%B9-%D0%BC%D0%B0%D0%BD%D0%BE%D1%88%D0%BA%D0%B8%D0%BD/1846145754" target="_blank" rel="noopener" class="platform-card">
@@ -342,7 +375,7 @@
                         <span class="platform-sub">Слушать в</span>
                         <strong>Apple Music</strong>
                     </div>
-                    <span class="platform-arrow">↗</span>
+                    <span class="platform-arrow">↗&#xFE0E;</span>
                 </a>
 
                 <a href="https://open.spotify.com/artist/2feyDJeWOunvGtmtMd5OGg?si=C2M1eXwNTemfjEgwv17wDg" target="_blank" rel="noopener" class="platform-card">
@@ -353,7 +386,7 @@
                         <span class="platform-sub">Слушать в</span>
                         <strong>Spotify</strong>
                     </div>
-                    <span class="platform-arrow">↗</span>
+                    <span class="platform-arrow">↗&#xFE0E;</span>
                 </a>
             </div>
         </section>

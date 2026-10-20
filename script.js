@@ -24,6 +24,9 @@ const seekSlider = document.getElementById('seek-slider');
 const currentTimeEl = document.getElementById('current-time');
 const totalTimeEl = document.getElementById('total-time');
 
+const ICON_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+const ICON_PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+
 let currentTrackIndex = 0;
 let isPlaying = false;
 let isDraggingSlider = false;
@@ -56,7 +59,7 @@ function resetTrackButtons() {
     trackRows.forEach((r) => {
         r.classList.remove('playing');
         const btn = r.querySelector('.track-play-btn');
-        if (btn) btn.textContent = '▶';
+        if (btn) btn.innerHTML = ICON_PLAY;
     });
 }
 
@@ -78,7 +81,7 @@ function updateProgressUI(currentSec, durationSec) {
 function pauseTrack() {
     audio.pause();
     isPlaying = false;
-    masterPlayBtn.textContent = '▶';
+    masterPlayBtn.innerHTML = ICON_PLAY;
     resetTrackButtons();
 }
 
@@ -99,11 +102,11 @@ function playTrack(index, seekRatio = null) {
 
     resetTrackButtons();
     row.classList.add('playing');
-    row.querySelector('.track-play-btn').textContent = '⏸';
+    row.querySelector('.track-play-btn').innerHTML = ICON_PAUSE;
 
     playerTitle.textContent = `${num}. ${title}`;
     nowPlayingLabel.textContent = 'Сейчас играет:';
-    masterPlayBtn.textContent = '⏸';
+    masterPlayBtn.innerHTML = ICON_PAUSE;
     isPlaying = true;
 
     if (audio.dataset.loadedSrc !== src) {
