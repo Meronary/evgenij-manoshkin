@@ -1,60 +1,18 @@
-// 1. ПЛАВНОЕ ПОЯВЛЕНИЕ БЛОКОВ ПРИ ПРОКРУТКЕ
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, { threshold: 0.08 });
-
-document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-// 2. МОБИЛЬНОЕ БУРГЕР-МЕНЮ + ПЛАВНЫЙ СКРОЛЛ ПО СЕКЦИЯМ
+// 1. МОБИЛЬНОЕ БУРГЕР-МЕНЮ
 const burgerBtn = document.getElementById('burger-btn');
 const navMenu = document.getElementById('nav-menu');
 
-burgerBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+burgerBtn.addEventListener('click', () => {
+    navMenu.classList.toggle('open');
+});
 
-function smoothScrollTo(targetPosition, duration = 750) {
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    let startTime = null;
-
-    function animation(currentTime) {
-        if (startTime === null) startTime = currentTime;
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        const ease = progress < 0.5
-            ? 4 * progress * progress * progress
-            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
-        window.scrollTo(0, startPosition + distance * ease);
-
-        if (elapsed < duration) {
-            requestAnimationFrame(animation);
-        }
-    }
-
-    requestAnimationFrame(animation);
-}
-
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', (e) => {
-        const targetId = anchor.getAttribute('href');
-        if (targetId === '#' || !document.querySelector(targetId)) return;
-
-        e.preventDefault();
+document.querySelectorAll('.nav-link').forEach((link) => {
+    link.addEventListener('click', () => {
         navMenu.classList.remove('open');
-
-        const targetEl = document.querySelector(targetId);
-        const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - 84;
-
-        smoothScrollTo(targetPosition, 800);
     });
 });
 
-// 3. АУДИОПЛЕЕР НА 14 ТРЕКОВ
+// 2. АУДИОПЛЕЕР
 const trackRows = document.querySelectorAll('.track-row');
 const audio = document.getElementById('audio-element');
 const nowPlayingLabel = document.getElementById('now-playing-label');
@@ -78,7 +36,7 @@ function formatTime(sec) {
     return `${mins}:${String(secs).padStart(2, '0')}`;
 }
 
-// Предзагрузка длительности каждого из 14 mp3 файлов
+// Загрузка длительности треков
 trackRows.forEach((row, index) => {
     const src = row.getAttribute('data-src');
     const timeEl = row.querySelector('.track-time');
@@ -93,6 +51,14 @@ trackRows.forEach((row, index) => {
         }
     });
 });
+
+function resetTrackButtons() {
+    trackRows.forEach((r) => {
+        r.classList.remove('playing');
+        const btn = r.querySelector('.track-play-btn');
+        if (btn) btn.textContent = '▶';
+    });
+}
 
 function updateProgressUI(currentSec, durationSec) {
     const safeDur = durationSec > 0 ? durationSec : 1;
@@ -113,13 +79,16 @@ function pauseTrack() {
     audio.pause();
     isPlaying = false;
     masterPlayBtn.textContent = '▶';
-    trackRows.forEach((r) => r.classList.remove('playing'));
+    resetTrackButtons();
 }
 
 function playTrack(index, seekRatio = null) {
     const row = trackRows[index];
+    if (!row) return;
+
     const title = row.getAttribute('data-title');
     const src = row.getAttribute('data-src');
+    const num = row.querySelector('.track-num').textContent;
 
     if (currentTrackIndex !== index) {
         trackRows.forEach((r) => {
@@ -128,10 +97,12 @@ function playTrack(index, seekRatio = null) {
         currentTrackIndex = index;
     }
 
-    trackRows.forEach((r) => r.classList.remove('playing'));
+    resetTrackButtons();
     row.classList.add('playing');
-    playerTitle.textContent = title;
-    nowPlayingLabel.textContent = `Воспроизводится: «${title}»`;
+    row.querySelector('.track-play-btn').textContent = '⏸';
+
+    playerTitle.textContent = `${num}. ${title}`;
+    nowPlayingLabel.textContent = 'Сейчас играет:';
     masterPlayBtn.textContent = '⏸';
     isPlaying = true;
 
@@ -144,7 +115,9 @@ function playTrack(index, seekRatio = null) {
         audio.currentTime = seekRatio * audio.duration;
     }
 
-    audio.play();
+    audio.play().catch(() => {
+        pauseTrack();
+    });
 }
 
 function seekToRatio(ratio) {
@@ -191,7 +164,6 @@ audio.addEventListener('timeupdate', () => {
     updateProgressUI(audio.currentTime, audio.duration);
 });
 
-// Автопереключение на следующий трек по порядку
 audio.addEventListener('ended', () => {
     if (trackRows[currentTrackIndex]) {
         trackRows[currentTrackIndex].querySelector('.track-progress').style.width = '0%';
