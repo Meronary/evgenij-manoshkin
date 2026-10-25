@@ -2,25 +2,30 @@
 const burgerBtn = document.getElementById('burger-btn');
 const navMenu = document.getElementById('nav-menu');
 
-burgerBtn.addEventListener('click', () => {
-    navMenu.classList.toggle('open');
-});
-
-document.querySelectorAll('.nav-link').forEach((link) => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('open');
+if (burgerBtn && navMenu) {
+    burgerBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
     });
-});
 
-// 2. АУДИОПЛЕЕР
+    document.querySelectorAll('.nav-link').forEach((link) => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('open');
+        });
+    });
+}
+
+// 2. АУДИОПЛЕЕР И ИНТЕРАКТИВНЫЕ ЭЛЕМЕНТЫ АЛЬБОМА
 const trackRows = document.querySelectorAll('.track-row');
 const audio = document.getElementById('audio-element');
+const albumCard = document.getElementById('album-card');
 const nowPlayingLabel = document.getElementById('now-playing-label');
 const playerTitle = document.getElementById('player-title');
 const masterPlayBtn = document.getElementById('master-play');
+const heroPlayBtn = document.getElementById('hero-play-btn');
 const prevBtn = document.getElementById('prev-btn');
 const nextBtn = document.getElementById('next-btn');
 const seekSlider = document.getElementById('seek-slider');
+const volumeSlider = document.getElementById('volume-slider');
 const currentTimeEl = document.getElementById('current-time');
 const totalTimeEl = document.getElementById('total-time');
 
@@ -31,6 +36,13 @@ let currentTrackIndex = 0;
 let isPlaying = false;
 let isDraggingSlider = false;
 
+if (volumeSlider && audio) {
+    audio.volume = parseFloat(volumeSlider.value);
+    volumeSlider.addEventListener('input', (e) => {
+        audio.volume = parseFloat(e.target.value);
+    });
+}
+
 function formatTime(sec) {
     if (!sec || isNaN(sec) || !isFinite(sec)) return '0:00';
     const whole = Math.max(0, Math.floor(sec));
@@ -39,7 +51,7 @@ function formatTime(sec) {
     return `${mins}:${String(secs).padStart(2, '0')}`;
 }
 
-// Загрузка длительности треков
+// Предзагрузка длительности всех 14 треков
 trackRows.forEach((row, index) => {
     const src = row.getAttribute('data-src');
     const timeEl = row.querySelector('.track-time');
@@ -63,6 +75,15 @@ function resetTrackButtons() {
     });
 }
 
+function syncHeroButton() {
+    if (!heroPlayBtn) return;
+    if (isPlaying) {
+        heroPlayBtn.innerHTML = `${ICON_PAUSE}<span>Пауза</span>`;
+    } else {
+        heroPlayBtn.innerHTML = `${ICON_PLAY}<span>Включить альбом</span>`;
+    }
+}
+
 function updateProgressUI(currentSec, durationSec) {
     const safeDur = durationSec > 0 ? durationSec : 1;
     const percent = Math.min(100, Math.max(0, (currentSec / safeDur) * 100));
@@ -82,7 +103,9 @@ function pauseTrack() {
     audio.pause();
     isPlaying = false;
     masterPlayBtn.innerHTML = ICON_PLAY;
+    if (albumCard) albumCard.classList.remove('is-playing');
     resetTrackButtons();
+    syncHeroButton();
 }
 
 function playTrack(index, seekRatio = null) {
@@ -108,6 +131,8 @@ function playTrack(index, seekRatio = null) {
     nowPlayingLabel.textContent = 'Сейчас играет:';
     masterPlayBtn.innerHTML = ICON_PAUSE;
     isPlaying = true;
+    if (albumCard) albumCard.classList.add('is-playing');
+    syncHeroButton();
 
     if (audio.dataset.loadedSrc !== src) {
         audio.src = src;
@@ -155,6 +180,17 @@ trackRows.forEach((row, idx) => {
     });
 });
 
+// Кнопка «Включить альбом» в первом экране
+if (heroPlayBtn) {
+    heroPlayBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            pauseTrack();
+        } else {
+            playTrack(currentTrackIndex);
+        }
+    });
+}
+
 audio.addEventListener('loadedmetadata', () => {
     if (audio.duration && isFinite(audio.duration)) {
         totalTimeEl.textContent = formatTime(audio.duration);
@@ -197,3 +233,32 @@ prevBtn.addEventListener('click', () => {
 nextBtn.addEventListener('click', () => {
     playTrack((currentTrackIndex + 1) % trackRows.length);
 });
+
+// 3. КОПИРОВАНИЕ ССЫЛКИ В БЛОКЕ ВИЗИТКИ
+const copyLinkBtn = document.getElementById('copy-link-btn');
+if (copyLinkBtn) {
+    copyLinkBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            const originalText = copyLinkBtn.textContent;
+            copyLinkBtn.textContent = 'Ссылка скопирована ✓';
+            setTimeout(() => {
+                copyLinkBtn.textContent = originalText;
+            }, 2500);
+        });
+    });
+}
+
+// 4. ПЛАВНОЕ ПОЯВЛЕНИЕ СЕКЦИЙ ПРИ ПРОКРУТКЕ
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    },
+    { threshold: 0.12 }
+);
+
+revealElements.forEach((el) => revealObserver.observe(el));
